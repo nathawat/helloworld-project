@@ -22,25 +22,16 @@ public class ConnectionBuilder {
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        try {
-            Properties prop = new Properties();
-            InputStream input = classloader.getResourceAsStream("config.properties");
-            prop.load(input);
-            String dburl = prop.getProperty("dburl");
-            String dbuser = prop.getProperty("dbuser");
-            String dbpassword = prop.getProperty("dbpassword");
+        String db = "jdbc:mysql://localhost:8889/helloworld";
+        String username = "root";
+        String password = "root";
 
-            test = "url:" + dburl + ", dbuser:" + dbuser + ", dbpassword:" + dbpassword;
+        Class.forName("com.mysql.jdbc.Driver");
+        System.out.println("Driver loaded success");
 
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded success");
+        conn = DriverManager.getConnection(db, username, password);
+        System.out.println("Connected");
 
-            conn = DriverManager.getConnection(dburl, dbuser, dbpassword);
-            System.out.println("Connected");
-
-        } catch (IOException ex) {
-            Logger.getLogger(ConnectionBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return conn;
     }
     

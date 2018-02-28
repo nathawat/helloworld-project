@@ -22,6 +22,7 @@ public class HelloServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HelloWorld hello = HelloWorld.getHelloWorld();
         request.setAttribute("message", hello.getMessage());
+        //request.setAttribute("message", "Hello from DB");
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
 
